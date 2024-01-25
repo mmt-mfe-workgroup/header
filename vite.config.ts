@@ -14,7 +14,7 @@ export default defineConfig({
         './App': './src/RemoteApp',
       },
       remotes: {
-        UI: 'https://unnatural-slope.surge.sh/assets/remoteEntry.js',
+        UI: 'https://rude-clouds.surge.sh/assets/remoteEntry.js',
       },
     }),
   ],
