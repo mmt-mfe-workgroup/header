@@ -10,7 +10,7 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "npx prettier . --write \"src/**/*{ts,tsx}\"",
-    "deploy": "npm run build && cd dist && echo '*' > CRS && echo $npm_package_config_cdn | pbcopy && npx surge && cd .."
+    "deploy": "npm run build && cd dist && echo '*' > CORS && echo $npm_package_config_cdn | pbcopy && npx surge && cd .."
   },
   "config": {
     "cdn": "unnatural-slope.surge.sh"
