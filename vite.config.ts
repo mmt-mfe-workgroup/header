@@ -11,7 +11,7 @@ export default defineConfig({
       filename: 'remoteEntry.js',
       // Modules to expose
       exposes: {
-        './Header': './src/RemoteApp',
+        './App': './src/RemoteApp',
       },
       remotes: {
         UI: 'https://unnatural-slope.surge.sh/assets/remoteEntry.js',
