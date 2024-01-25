@@ -7,11 +7,14 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: 'remote-app',
-      // filename: 'remoteEntry.js',
+      name: 'header-component',
+      filename: 'remoteEntry.js',
       // Modules to expose
       exposes: {
-        './Button': './src/app.tsx',
+        './Header': './src/RemoteApp',
+      },
+      remotes: {
+        UI: 'https://rude-clouds.surge.sh/assets/remoteEntry.js',
       },
     }),
   ],
