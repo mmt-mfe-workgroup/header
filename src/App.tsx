@@ -4,10 +4,10 @@ import voucher from './assets/icons/voucher.svg'
 import voucherSelected from './assets/icons/voucher-selected.svg'
 import basket from './assets/icons/basket.svg'
 import basketSelected from './assets/icons/basket-selected.svg'
+const RemoteButton = lazy(() => import('UI/Button'))
 
 
 function App() {
-  const RemoteButton = lazy(() => import('UI/Button'))
   // TODO dispatch to basket
   const [clickedVocher, setClickedVoucher] = useState(false)
   
