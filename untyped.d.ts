@@ -1,1 +1,1 @@
-declare module "UI/Button"
+declare module 'UI/Button'

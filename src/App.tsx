@@ -1,90 +1,93 @@
-import { useState, lazy, Suspense } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import './index.css'
 import voucher from './assets/icons/voucher.svg'
 import voucherSelected from './assets/icons/voucher-selected.svg'
 import basket from './assets/icons/basket.svg'
+import Loader from './components/Loader'
 import basketSelected from './assets/icons/basket-selected.svg'
 const RemoteButton = lazy(() => import('UI/Button'))
 
-
-function App() {
-  // TODO dispatch to basket
+function App({ label }: { label: string }) {
   const [clickedVocher, setClickedVoucher] = useState(false)
-  
+
+  const [basketTotal, setBasketTotal] = useState(0)
+
   const [clearedBasket, setClearedBasket] = useState(5)
 
-  // TODO get actual value from event
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [basketTotal] = useState(0)
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    window.addEventListener('basketItemCount', (e: any) =>
+      setBasketTotal(e?.detail?.basketItemCount)
+    )
+    // bool for now
+    window.addEventListener('applyVoucher', () => setClickedVoucher(true))
+    return () => {
+      window.removeEventListener('basketItemCount', () => setBasketTotal(0))
+    }
+  }, [])
 
-  // document.addEventListener('basketUpdated', (e: Event, total: number) => setBasketTotal(e, total))
+  const handleVoucherClick = () => {
+    const voucherClickEvent = new CustomEvent('addVoucher')
 
-  const onVoucherClick = () => {
+    window.dispatchEvent(voucherClickEvent)
+
     setClickedVoucher(!clickedVocher)
+    console.log(`Dispatched addVoucher event`)
   }
 
-  const onClearBasketClick = () => {
+  const handleClearBasketClick = () => {
+    const basketClearEvent = new CustomEvent('clearBasket')
+
+    window.dispatchEvent(basketClearEvent)
+
+    console.log(`Dispatched clearBasket event`)
     setClearedBasket(0)
   }
 
   return (
     <>
       <div className="sticky top-0 left-0">
-        <nav>
-          <div className="border border-black p-4">
-            <div className="flex flex-column justify-between">
-              <h1 className="my-auto ml-8 text-5xl">MFE App</h1>
-              <div className="flex">
-                <div>
-                  <ul className="flex">
-                    <li>
-                      {/* <p className="text-center">Apply Voucher</p> */}
-                      <Suspense fallback={<div>Loading...</div>}>
-                        <RemoteButton
-                          label="Apply voucher"
-                          onClick={() => onVoucherClick()}
-                        />
-                      </Suspense>
-                      <div
-                        className="px-5 clickable"
-                        onClick={() => onVoucherClick()}
-                      >
-                        <img
-                          src={clickedVocher ? voucherSelected : voucher}
-                          className="logo"
-                          alt="voucher"
-                        />
-                      </div>
-                    </li>
-                    <li>
-                      <div>
-                        <p className="text-center">Basket</p>
-                        <div className="px-5">
-                          <img
-                            src={basketTotal ? basketSelected : basket}
-                            className="logo"
-                            alt="basket"
-                          />
-                          <span className="absolute top-12 right-7">
-                            {basketTotal || clearedBasket}
-                          </span>
-                          <Suspense fallback={<div>Loading...</div>}>
-                            <RemoteButton
-                              label="Clear basket"
-                              onClick={() => onClearBasketClick()}
-                            />
-                          </Suspense>
-                          {/* <div
-                            className="clickable"
-                            onClick={() => onClearBasketClick()}
-                          >
-                            Clear basket
-                          </div> */}
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
+        <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
+              {label || 'MFE APP'}
+            </span>
+            <div className="flex space-x-3">
+              <div className="flex flex-col justify-between">
+                <p className="text-center text-white">Vouchers</p>
+                <div
+                  className="px-5 clickable"
+                  onClick={() => handleVoucherClick()}
+                >
+                  <img
+                    src={clickedVocher ? voucherSelected : voucher}
+                    className="logo"
+                    alt="voucher"
+                  />
                 </div>
+                <Suspense fallback={<Loader />}>
+                  <RemoteButton
+                    label="Apply voucher"
+                    onClick={() => handleVoucherClick()}
+                  />
+                </Suspense>
+              </div>
+              <div className="flex flex-col justify-around">
+                <p className="text-center text-white">Basket</p>
+                <img
+                  src={basketTotal ? basketSelected : basket}
+                  className="logo"
+                  alt="basket"
+                />
+                <span className="absolute text-white">
+                  {basketTotal || clearedBasket}
+                </span>
+                <Suspense fallback={<Loader />}>
+                  <RemoteButton
+                    label="Clear basket"
+                    onClick={() => handleClearBasketClick()}
+                  />
+                </Suspense>
               </div>
             </div>
           </div>
