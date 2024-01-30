@@ -14,7 +14,8 @@ export default defineConfig({
         './App': './src/RemoteApp',
       },
       remotes: {
-        UI: 'https://useless-distribution.surge.sh/assets/remoteEntry.js',
+        // UI: 'https://useless-distribution.surge.sh/assets/remoteEntry.js',
+        UI: 'https://mmt-mfe-ui-button/assets/remoteEntry.js',
       },
     }),
   ],
