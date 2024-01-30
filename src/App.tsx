@@ -48,30 +48,27 @@ function App({ label }: { label?: string }) {
     <>
       <div className="top-0 left-0">
         <nav className="bg-white dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-          <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+          <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4">
             <span className="w-1/2 self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
               {label || 'MFE APP'}
             </span>
-            <span className="flex max-h-12 w-1/4">
-              <ErrorBoundary>
-                <Suspense fallback={<Loader />}>
-                  <RemoteButton
-                    label="Apply voucher"
-                    onClick={() => handleVoucherClick()}
-                  />
-                </Suspense>
-              </ErrorBoundary>
-              <img
-                className="max-h-12"
-                src={clickedVocher ? voucherSelected : voucher}
-                alt="voucher"
-              />
-            </span>
-            <span className="flex max-h-12 w-1/4">
-              <span className="absolute text-white">
-                {basketTotal || clearedBasket}
+            <span className="ml-auto flex">
+              <span className="flex mx-2 max-h-13 items-center">
+                <ErrorBoundary>
+                  <Suspense fallback={<Loader />}>
+                    <RemoteButton
+                      label="Apply voucher"
+                      onClick={() => handleVoucherClick()}
+                    />
+                  </Suspense>
+                </ErrorBoundary>
+                <img
+                  className="max-h-12 max-w-8 ml-2"
+                  src={clickedVocher ? voucherSelected : voucher}
+                  alt="voucher"
+                />
               </span>
-              <span className="max-h-12">
+              <span className="flex mx-2 max-h-13 items-center">
                 <ErrorBoundary>
                   <Suspense fallback={<Loader />}>
                     <RemoteButton
@@ -80,12 +77,12 @@ function App({ label }: { label?: string }) {
                     />
                   </Suspense>
                 </ErrorBoundary>
+                <img
+                  className="max-h-12 max-w-8 ml-2"
+                  src={basketTotal ? basketSelected : basket}
+                  alt="basket"
+                />
               </span>
-              <img
-                className="max-h-12"
-                src={basketTotal ? basketSelected : basket}
-                alt="basket"
-              />
             </span>
           </div>
         </nav>
