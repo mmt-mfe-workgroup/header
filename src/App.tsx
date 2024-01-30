@@ -82,6 +82,9 @@ function App({ label }: { label?: string }) {
                   src={basketTotal ? basketSelected : basket}
                   alt="basket"
                 />
+                <span className="mb-6 text-white">
+                  {basketTotal || clearedBasket}
+                </span>
               </span>
             </span>
           </div>
