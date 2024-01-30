@@ -15,7 +15,7 @@ export default defineConfig({
       },
       remotes: {
         // UI: 'https://useless-distribution.surge.sh/assets/remoteEntry.js',
-        UI: 'https://mmt-mfe-ui-button/assets/remoteEntry.js',
+        UI: 'https://mmt-mfe-ui-button.netlify.app/assets/remoteEntry.js',
       },
     }),
   ],
