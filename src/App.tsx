@@ -7,12 +7,12 @@ import Loader from './components/Loader'
 import basketSelected from './assets/icons/basket-selected.svg'
 const RemoteButton = lazy(() => import('UI/Button'))
 
-function App({ label }: { label: string }) {
+function App({ label }: { label?: string }) {
   const [clickedVocher, setClickedVoucher] = useState(false)
 
   const [basketTotal, setBasketTotal] = useState(0)
 
-  const [clearedBasket, setClearedBasket] = useState(5)
+  const [clearedBasket, setClearedBasket] = useState(0)
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
