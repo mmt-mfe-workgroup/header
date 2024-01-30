@@ -3,4 +3,4 @@ import App from './App'
 
 // eslint-disable-next-line react-refresh/only-export-components
 export default (container: HTMLElement, props?: { label: string }) =>
-  ReactDOM.render(<App {...props} />, container)
+  ReactDOM.render(<App label={props?.label} />, container)
