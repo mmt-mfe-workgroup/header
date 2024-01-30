@@ -48,7 +48,7 @@ function App({ label }: { label?: string }) {
   return (
     <>
       <div className="top-0 left-0">
-        <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <nav className="bg-white dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
               {label || 'MFE APP'}
