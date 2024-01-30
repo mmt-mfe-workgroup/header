@@ -6,7 +6,7 @@ import basket from './assets/icons/basket.svg'
 import Loader from './components/Loader'
 import basketSelected from './assets/icons/basket-selected.svg'
 const RemoteButton = lazy(() => import('UI/Button'))
-import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
+import ErrorBoundary from './components/ErrorBoundary'
 
 function App({ label }: { label?: string }) {
   const [clickedVocher, setClickedVoucher] = useState(false)
@@ -20,14 +20,13 @@ function App({ label }: { label?: string }) {
     window.addEventListener('basketItemCount', (e: any) =>
       setBasketTotal(e?.detail?.basketItemCount)
     )
-    // bool for now
-    window.addEventListener('applyVoucher', () => setClickedVoucher(true))
     return () => {
       window.removeEventListener('basketItemCount', () => setBasketTotal(0))
     }
   }, [])
 
   const handleVoucherClick = () => {
+    // bool for now
     const voucherClickEvent = new CustomEvent('addVoucher')
 
     window.dispatchEvent(voucherClickEvent)
@@ -50,41 +49,29 @@ function App({ label }: { label?: string }) {
       <div className="top-0 left-0">
         <nav className="bg-white dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="w-1/2 self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
               {label || 'MFE APP'}
             </span>
-            <div className="flex space-x-3">
-              <div className="flex flex-col justify-between">
-                <p className="text-center text-white">Vouchers</p>
-                <div
-                  className="px-5 clickable"
-                  onClick={() => handleVoucherClick()}
-                >
-                  <img
-                    src={clickedVocher ? voucherSelected : voucher}
-                    className="logo"
-                    alt="voucher"
+            <span className="flex max-h-12 w-1/4">
+              <ErrorBoundary>
+                <Suspense fallback={<Loader />}>
+                  <RemoteButton
+                    label="Apply voucher"
+                    onClick={() => handleVoucherClick()}
                   />
-                </div>
-                <ErrorBoundary>
-                  <Suspense fallback={<Loader />}>
-                    <RemoteButton
-                      label="Apply voucher"
-                      onClick={() => handleVoucherClick()}
-                    />
-                  </Suspense>
-                </ErrorBoundary>
-              </div>
-              <div className="flex flex-col justify-around">
-                <p className="text-center text-white">Basket</p>
-                <img
-                  src={basketTotal ? basketSelected : basket}
-                  className="logo"
-                  alt="basket"
-                />
-                <span className="absolute text-white">
-                  {basketTotal || clearedBasket}
-                </span>
+                </Suspense>
+              </ErrorBoundary>
+              <img
+                className="max-h-12"
+                src={clickedVocher ? voucherSelected : voucher}
+                alt="voucher"
+              />
+            </span>
+            <span className="flex max-h-12 w-1/4">
+              <span className="absolute text-white">
+                {basketTotal || clearedBasket}
+              </span>
+              <span className="max-h-12">
                 <ErrorBoundary>
                   <Suspense fallback={<Loader />}>
                     <RemoteButton
@@ -93,8 +80,13 @@ function App({ label }: { label?: string }) {
                     />
                   </Suspense>
                 </ErrorBoundary>
-              </div>
-            </div>
+              </span>
+              <img
+                className="max-h-12"
+                src={basketTotal ? basketSelected : basket}
+                alt="basket"
+              />
+            </span>
           </div>
         </nav>
       </div>
