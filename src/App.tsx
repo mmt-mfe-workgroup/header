@@ -6,6 +6,7 @@ import basket from './assets/icons/basket.svg'
 import Loader from './components/Loader'
 import basketSelected from './assets/icons/basket-selected.svg'
 const RemoteButton = lazy(() => import('UI/Button'))
+import ErrorBoundary from './components/ErrorBoundary/ErrorBoundary'
 
 function App({ label }: { label?: string }) {
   const [clickedVocher, setClickedVoucher] = useState(false)
@@ -65,12 +66,14 @@ function App({ label }: { label?: string }) {
                     alt="voucher"
                   />
                 </div>
-                <Suspense fallback={<Loader />}>
-                  <RemoteButton
-                    label="Apply voucher"
-                    onClick={() => handleVoucherClick()}
-                  />
-                </Suspense>
+                <ErrorBoundary>
+                  <Suspense fallback={<Loader />}>
+                    <RemoteButton
+                      label="Apply voucher"
+                      onClick={() => handleVoucherClick()}
+                    />
+                  </Suspense>
+                </ErrorBoundary>
               </div>
               <div className="flex flex-col justify-around">
                 <p className="text-center text-white">Basket</p>
@@ -82,12 +85,14 @@ function App({ label }: { label?: string }) {
                 <span className="absolute text-white">
                   {basketTotal || clearedBasket}
                 </span>
-                <Suspense fallback={<Loader />}>
-                  <RemoteButton
-                    label="Clear basket"
-                    onClick={() => handleClearBasketClick()}
-                  />
-                </Suspense>
+                <ErrorBoundary>
+                  <Suspense fallback={<Loader />}>
+                    <RemoteButton
+                      label="Clear basket"
+                      onClick={() => handleClearBasketClick()}
+                    />
+                  </Suspense>
+                </ErrorBoundary>
               </div>
             </div>
           </div>
