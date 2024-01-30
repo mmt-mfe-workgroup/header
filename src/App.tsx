@@ -57,7 +57,9 @@ function App({ label }: { label?: string }) {
                 <ErrorBoundary>
                   <Suspense fallback={<Loader />}>
                     <RemoteButton
-                      label="Apply voucher"
+                      label={
+                        clickedVocher ? 'Voucher selected' : 'Apply voucher'
+                      }
                       onClick={() => handleVoucherClick()}
                     />
                   </Suspense>
