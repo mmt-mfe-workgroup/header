@@ -49,7 +49,7 @@ function App({ label }: { label?: string }) {
       <div className="top-0 left-0">
         <nav className="bg-white w-full z-20 top-0 start-0 border-b border-gray-200">
           <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4">
-            <span className="w-1/2 self-center text-4xl font-semibold whitespace-nowrap">
+            <span className="w-1/2 self-center text-4xl font-semibold whitespace-nowrap text-black">
               {label || 'MFE APP'}
             </span>
             <span className="ml-auto flex">
