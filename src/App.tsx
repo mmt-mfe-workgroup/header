@@ -47,9 +47,9 @@ function App({ label }: { label?: string }) {
   return (
     <>
       <div className="top-0 left-0">
-        <nav className="bg-white dark:bg-gray-900 w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <nav className="bg-white w-full z-20 top-0 start-0 border-b border-gray-200">
           <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4">
-            <span className="w-1/2 self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
+            <span className="w-1/2 self-center text-4xl font-semibold whitespace-nowrap">
               {label || 'MFE APP'}
             </span>
             <span className="ml-auto flex">
@@ -65,12 +65,12 @@ function App({ label }: { label?: string }) {
                   </Suspense>
                 </ErrorBoundary>
                 <img
-                  className="max-h-12 max-w-8 ml-2"
+                  className="max-h-12 max-w-8 ml-2 mr-6"
                   src={clickedVocher ? voucherSelected : voucher}
                   alt="voucher"
                 />
               </span>
-              <span className="flex mx-2 max-h-13 items-center">
+              <span className="flex mx-2 max-h-13 items-center ml-2">
                 <ErrorBoundary>
                   <Suspense fallback={<Loader />}>
                     <RemoteButton
@@ -84,7 +84,7 @@ function App({ label }: { label?: string }) {
                   src={basketTotal ? basketSelected : basket}
                   alt="basket"
                 />
-                <span className="mb-6 text-white">
+                <span className="mb-6">
                   {basketTotal || clearedBasket}
                 </span>
               </span>
