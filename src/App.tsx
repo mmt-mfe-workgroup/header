@@ -1,7 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
 import './index.css'
-import voucher from './assets/icons/voucher.svg'
-import voucherSelected from './assets/icons/voucher-selected.svg'
 import basket from './assets/icons/basket.svg'
 import Loader from './components/Loader'
 import basketSelected from './assets/icons/basket-selected.svg'
