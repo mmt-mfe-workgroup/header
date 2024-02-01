@@ -6,6 +6,14 @@ import basketSelected from './assets/icons/basket-selected.svg'
 const RemoteButton = lazy(() => import('UI/Button'))
 import ErrorBoundary from './components/ErrorBoundary'
 
+const PROMO_CODES = [
+  'MONDAY30',
+  'TUESDAY25',
+  'WEDNESDAY50',
+  'THURSDAY15',
+  'FRIDAY10',
+]
+
 function App({ label }: { label?: string }) {
   const [clickedVocher, setClickedVoucher] = useState(false)
 
@@ -14,6 +22,8 @@ function App({ label }: { label?: string }) {
   const [clearedBasket, setClearedBasket] = useState(0)
 
   const [voucherCode, setVoucherCode] = useState('')
+
+  const [invalidVoucher, setInvalidVoucher] = useState('')
 
   const [xrayActive, setXrayActive] = useState(false)
 
@@ -35,13 +45,18 @@ function App({ label }: { label?: string }) {
   }, [])
 
   const handleVoucherClick = (voucherCode: string) => {
+    if (!PROMO_CODES.find((code) => code === voucherCode)) {
+      setVoucherCode('')
+      setInvalidVoucher('Invalid code')
+      return
+    }
     // bool for now
     const voucherClickEvent = new CustomEvent('addVoucher', {
       detail: { voucherCode },
     })
 
     window.dispatchEvent(voucherClickEvent)
-
+    setInvalidVoucher('')
     setClickedVoucher(!clickedVocher)
     console.log(`Dispatched addVoucher event with code ${voucherCode}`)
   }
@@ -87,16 +102,21 @@ function App({ label }: { label?: string }) {
                     <input
                       type="search"
                       onChange={(e) => setVoucherCode(e?.target?.value)}
+                      value={voucherCode}
                       id="default-search"
                       className="mr-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
-                      placeholder={clickedVocher ? '' : 'Enter code...'}
+                      placeholder={
+                        invalidVoucher ? invalidVoucher : 'Enter code...'
+                      }
                       required
                     />
                     <ErrorBoundary>
                       <Suspense fallback={<Loader />}>
                         <RemoteButton
                           label={
-                            clickedVocher ? 'Voucher applied' : 'Apply voucher'
+                            clickedVocher && !invalidVoucher
+                              ? 'Voucher applied'
+                              : 'Apply voucher'
                           }
                           onClick={() => handleVoucherClick(voucherCode)}
                         />
