@@ -104,7 +104,11 @@ function App({ label }: { label?: string }) {
                       onChange={(e) => setVoucherCode(e?.target?.value)}
                       value={voucherCode}
                       id="default-search"
-                      className="mr-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                      className={
+                        invalidVoucher
+                          ? 'bg-red-50 border border-red-500 text-red-900 placeholder-red-700 mr-4 ps-10 text-sm rounded-lg bg-gray-50'
+                          : 'mr-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500'
+                      }
                       placeholder={
                         invalidVoucher ? invalidVoucher : 'Enter code...'
                       }
