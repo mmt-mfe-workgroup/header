@@ -23,7 +23,7 @@ function App({ label }: { label?: string }) {
       setBasketTotal(e?.detail?.basketItemCount)
     )
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    window.addEventListener('view:xray', (e: any) => {
+    window.addEventListener('view:x-ray', (e: any) => {
       console.log('XXX - e:', e)
       if (e?.target?.checked) setXrayActive(true)
       else setXrayActive(false)
