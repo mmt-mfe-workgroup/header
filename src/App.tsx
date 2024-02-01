@@ -14,6 +14,7 @@ function App({ label }: { label?: string }) {
   const [basketTotal, setBasketTotal] = useState(0)
 
   const [clearedBasket, setClearedBasket] = useState(0)
+  const [voucherCode, setVoucherCode] = useState('')
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -25,14 +26,16 @@ function App({ label }: { label?: string }) {
     }
   }, [])
 
-  const handleVoucherClick = () => {
+  const handleVoucherClick = (voucherCode: string) => {
     // bool for now
-    const voucherClickEvent = new CustomEvent('addVoucher')
+    const voucherClickEvent = new CustomEvent('addVoucher', {
+      detail: { voucherCode },
+    })
 
     window.dispatchEvent(voucherClickEvent)
 
     setClickedVoucher(!clickedVocher)
-    console.log(`Dispatched addVoucher event`)
+    console.log(`Dispatched addVoucher event with code ${voucherCode}`)
   }
 
   const handleClearBasketClick = () => {
@@ -54,40 +57,46 @@ function App({ label }: { label?: string }) {
             </span>
             <span className="ml-auto flex">
               <span className="flex mx-2 max-h-13 items-center">
-                <ErrorBoundary>
-                  <Suspense fallback={<Loader />}>
-                    <RemoteButton
-                      label={
-                        clickedVocher ? 'Voucher selected' : 'Apply voucher'
-                      }
-                      onClick={() => handleVoucherClick()}
-                    />
-                  </Suspense>
-                </ErrorBoundary>
-                <img
-                  className="max-h-12 max-w-8 ml-2 mr-6"
-                  src={clickedVocher ? voucherSelected : voucher}
-                  alt="voucher"
-                />
+                <div className="flex">
+                  <input
+                    type="search"
+                    onChange={(e) => {
+                      console.log(e?.target?.value)
+                      setVoucherCode(e?.target?.value)
+                    }}
+                    id="default-search"
+                    className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Enter code"
+                    required
+                  />
+                  <ErrorBoundary>
+                    <Suspense fallback={<Loader />}>
+                      <RemoteButton
+                        label={
+                          clickedVocher ? 'Voucher applied' : 'Apply voucher'
+                        }
+                        onClick={() => handleVoucherClick(voucherCode)}
+                      />
+                    </Suspense>
+                  </ErrorBoundary>
+                </div>
               </span>
-              <span className="flex mx-2 max-h-13 items-center ml-2">
-                <ErrorBoundary>
-                  <Suspense fallback={<Loader />}>
-                    <RemoteButton
-                      label="Clear basket"
-                      onClick={() => handleClearBasketClick()}
-                    />
-                  </Suspense>
-                </ErrorBoundary>
-                <img
-                  className="max-h-12 max-w-8 ml-2"
-                  src={basketTotal ? basketSelected : basket}
-                  alt="basket"
-                />
-                <span className="mb-6">
-                  {basketTotal || clearedBasket}
-                </span>
-              </span>
+            </span>
+            <span className="flex mx-2 max-h-13 items-center ml-2">
+              <ErrorBoundary>
+                <Suspense fallback={<Loader />}>
+                  <RemoteButton
+                    label="Clear basket"
+                    onClick={() => handleClearBasketClick()}
+                  />
+                </Suspense>
+              </ErrorBoundary>
+              <img
+                className="max-h-12 max-w-8 ml-2"
+                src={basketTotal ? basketSelected : basket}
+                alt="basket"
+              />
+              <span className="mb-6">{basketTotal || clearedBasket}</span>
             </span>
           </div>
         </nav>
