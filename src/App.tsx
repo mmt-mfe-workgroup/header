@@ -76,22 +76,24 @@ function App({ label }: { label?: string }) {
                   </ErrorBoundary>
                 </div>
               </span>
-            </span>
-            <span className="flex mx-2 max-h-13 items-center ml-2">
-              <ErrorBoundary>
-                <Suspense fallback={<Loader />}>
-                  <RemoteButton
-                    label="Clear basket"
-                    onClick={() => handleClearBasketClick()}
-                  />
-                </Suspense>
-              </ErrorBoundary>
-              <img
-                className="max-h-12 max-w-8 ml-2"
-                src={basketTotal ? basketSelected : basket}
-                alt="basket"
-              />
-              <span className="mb-6">{basketTotal || clearedBasket}</span>
+              <span className="flex mx-2 max-h-13 items-center ml-2">
+                <span className="w-32">
+                  <ErrorBoundary>
+                    <Suspense fallback={<Loader />}>
+                      <RemoteButton
+                        label="Clear basket"
+                        onClick={() => handleClearBasketClick()}
+                      />
+                    </Suspense>
+                  </ErrorBoundary>
+                </span>
+                <img
+                  className="max-h-12 max-w-8 ml-2"
+                  src={basketTotal ? basketSelected : basket}
+                  alt="basket"
+                />
+                <span className="mb-6">{basketTotal || clearedBasket}</span>
+              </span>
             </span>
           </div>
         </nav>
