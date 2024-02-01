@@ -77,7 +77,7 @@ function App({ label }: { label?: string }) {
                 </div>
               </span>
               <span className="flex mx-2 max-h-13 items-center ml-2">
-                <span className="w-32 mr-4">
+                <span className="w-32 mr-9">
                   <ErrorBoundary>
                     <Suspense fallback={<Loader />}>
                       <RemoteButton
