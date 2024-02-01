@@ -76,7 +76,7 @@ function App({ label }: { label?: string }) {
                   </ErrorBoundary>
                 </div>
               </span>
-              <span className="flex mx-2 max-h-13 items-center ml-2">
+              <span className="flex mx-2 max-h-13 items-center ml-8">
                 <span className="w-32">
                   <ErrorBoundary>
                     <Suspense fallback={<Loader />}>
@@ -92,7 +92,9 @@ function App({ label }: { label?: string }) {
                   src={basketTotal ? basketSelected : basket}
                   alt="basket"
                 />
-                <span className="mb-6">{basketTotal || clearedBasket}</span>
+                <span className="mb-6 text-black">
+                  {basketTotal || clearedBasket}
+                </span>
               </span>
             </span>
           </div>
