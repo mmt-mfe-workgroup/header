@@ -60,7 +60,7 @@ function App({ label }: { label?: string }) {
                     type="search"
                     onChange={(e) => setVoucherCode(e?.target?.value)}
                     id="default-search"
-                    className="ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+                    className="mr-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
                     placeholder={clickedVocher ? '' : 'Enter code...'}
                     required
                   />
@@ -76,8 +76,8 @@ function App({ label }: { label?: string }) {
                   </ErrorBoundary>
                 </div>
               </span>
-              <span className="flex mx-2 max-h-13 items-center ml-8">
-                <span className="w-32">
+              <span className="flex mx-2 max-h-13 items-center ml-2">
+                <span className="w-32 mr-4">
                   <ErrorBoundary>
                     <Suspense fallback={<Loader />}>
                       <RemoteButton
@@ -88,7 +88,7 @@ function App({ label }: { label?: string }) {
                   </ErrorBoundary>
                 </span>
                 <img
-                  className="max-h-12 max-w-8 ml-2"
+                  className="max-h-12 max-w-8"
                   src={basketTotal ? basketSelected : basket}
                   alt="basket"
                 />
