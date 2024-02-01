@@ -24,6 +24,7 @@ function App({ label }: { label?: string }) {
     )
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     window.addEventListener('view:xray', (e: any) => {
+      console.log('XXX - e:', e)
       if (e?.target?.checked) setXrayActive(true)
       else setXrayActive(false)
     })
