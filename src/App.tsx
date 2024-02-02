@@ -93,7 +93,7 @@ function App({ label }: { label?: string }) {
 
           {!xrayActive && (
             <div className="max-w-screen-xl flex flex-wrap items-center mx-auto p-4">
-              <span className="w-1/2 self-center text-4xl font-semibold whitespace-nowrap text-black">
+              <span className="w-1/2 self-center text-2xl font-semibold whitespace-nowrap text-black">
                 {label || 'MFE APP'}
               </span>
               <span className="ml-auto flex">
